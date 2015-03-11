@@ -24,6 +24,20 @@ public class BinarySearchTree {
 		}
 	}
 	
+	void addR(int newValue){
+		head= addToTree(newValue, head);
+	}
+	
+	Node addToTree(int newValue, Node root){
+		if(root==null)
+			return new Node(newValue);
+		if(newValue< root.value)
+			root.left= addToTree(newValue, root.left);
+		else
+			root.right= addToTree(newValue, root.right);
+		return root;
+	}
+	
 	int find(int value){
 		Node cur= head;
 		while(cur!=null){
@@ -37,9 +51,8 @@ public class BinarySearchTree {
 		return -1;
 	}
 	
-	boolean delete(int target){
+	void delete(int target){
 		head= deleteNode(target, head);
-		return deleteNode(target, head)==null;
 	}
 	
 	Node deleteNode(int target, Node root){
@@ -48,7 +61,7 @@ public class BinarySearchTree {
 		if(target< root.value)
 			root.left= deleteNode(target, root.left);
 		else if(target> root.value)
-			root.left= deleteNode(target, root.right);
+			root.right= deleteNode(target, root.right);
 		else{
 			if(root.left==null && root.right==null)
 				return null;
@@ -57,17 +70,11 @@ public class BinarySearchTree {
 			else if(root.right==null)
 				return root.left;
 			else{
-				Node pre= root;
-				Node temp= root.left;
-				while(temp.right!=null){
-					pre= temp;
-					temp= temp.right;
-				}
-				if(pre==root)
-					pre.left=null;
-				else
-					pre.right=null;
-				
+				Node cur= root.left;
+				while(cur.right!=null)
+					cur= cur.right;
+				cur.right= root.right;
+				return root.left;
 			}
 		}
 		return root;

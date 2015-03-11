@@ -33,19 +33,41 @@ public class _test {
 		//LinkedList<String> list= new LinkedList<String>();
 		//MyLinkedList list= new MyLinkedList();
 		MyArrayList list= new MyArrayList();
-		
 		list.add("haha");
 		list.add(null);
 		list.add(null);
 		list.add("yes");
 		for(int i=0; i<30; i++)
 			list.add("I'm "+i);
+		String str= "HElLo";
+		str= str.toLowerCase();
+		print(str);
 		
-		print(list.indexOf(null)+", "+list.remove(0));
-		for(int i=0; i<list.size(); i++){
-			print(list.get(i));
+		int[] freq= new int[256]; 
+		Set<String> set= new HashSet<String>();
+		for(int i=0; i<str.length(); i++){
+			//int ch= str.charAt(i);
+			//int j= ch;
+			freq[str.charAt(i)]++;
+			print(freq[str.charAt(i)]);
+			
 		}
 		
+		
+//		char[] dic= new char[26];
+//		for(char ch: dic){
+//			int i= ch;
+//			print(i);
+//		}
+//		
+//		int[] li= new int[10];
+//		for(int l: li)
+			//print(l);
+//		print(list.indexOf(null)+", "+list.remove(0));
+//		for(int i=0; i<list.size(); i++){
+//			print(list.get(i));
+//		}
+//		
 		
 	}
 	
@@ -53,4 +75,38 @@ public class _test {
 		System.out.println(o);
 	}
 
+    public int lengthOfLongestSubstring(String s) {
+        int size= s.length();
+        if(size==0)
+            return 0;
+        else if(size==1)
+            return 1;
+            
+        int[] count= new int[256];
+        int left=0;
+        int right=1;
+        int len= 1;
+        int max= 1;
+        count[s.charAt(0)]=1;
+        while(left<right && right<size){
+            char chr= s.charAt(right);
+            if(count[chr]==0){
+                count[chr]++;
+                len++;
+                if(len> max)
+                    max= len;
+            }else{
+                while(left<right){
+                    char chl= s.charAt(left);
+                    left++;
+                    if(chl==chr)
+                        break;
+                    else
+                        count[chl]--;
+                }
+            }
+            right++;
+        }
+        return max;
+    }
 }

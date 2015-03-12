@@ -29,10 +29,13 @@ public class _test {
 		
 		bst.delete(40);
 		it.leverOrder(root);
+		it.inOrder(root);
 		bst.delete(56);
 		it.leverOrder(root);
+		it.inOrder(root);
 		bst.delete(65);
 		it.leverOrder(root);
+		it.inOrder(root);
 		System.out.println("Done.\n");
 	}
 	
